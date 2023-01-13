@@ -1,10 +1,27 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+type objProps= {
+  name: string;
+  email: string;
+  number: string;
+  profile: string;
+  password: string;
+  confirmpwd: string;
+}
+type navProps={
+  formDataArr:objProps[],
+  setFormArr:React.Dispatch<React.SetStateAction< objProps[]>>
+}
+const Navbar = (props:navProps) => {
+  const logout=()=>{
+   localStorage.removeItem('arr');
+}
 
-const Navbar = () => {
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div className="container-fluid">
       <div>
+        <Link to="/home">
         <a className="navbar-brand" href="dfgdf">
             <img
               className="logo"
@@ -14,6 +31,7 @@ const Navbar = () => {
             />
             <span className='fs-2 ms-3 fw-bold'>Blog</span>
         </a>
+        </Link>
       </div>
       <button
         className="navbar-toggler"
@@ -29,18 +47,27 @@ const Navbar = () => {
       <div className="collapse navbar-collapse grow" id="navbarNav">
         <ul className="navbar-nav fs-5 align-items-center">
           <li className="nav-item me-2">
-          </li>
-          <li className="nav-item me-5">
-            <a className="nav-link active" href="sd">
-              <i
-                className="bi bi-geo-alt-fill"
-                style={{ fontSize: "30px", color: "#147618" }}
-              ></i>
-              <span className="fontsm">Sign In</span>
+         
+          <Link to="/add_post">
+          <a className="nav-link active" href="sd">
+              <span className="fontsm fw-bold">Add Post</span>
               
             </a>
+            </Link>
+          </li>
+          <li className="nav-item me-5">
+            <Link to="/">
+            <a className="nav-link active" href="sd">
+              <span className="fontsm fw-bold ">Sign Up</span>
+            </a>
+            </Link>
           </li>
           <li className="nav-item ">
+          <Link to="/">
+            <a className="nav-link active" href="sd">
+              <span className="fontsm fw-bold " onClick={logout}>Log Out</span>
+            </a>
+            </Link>
           </li>
           <li className="nav-item me-5">
           </li>
