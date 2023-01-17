@@ -19,15 +19,13 @@ type navProps={
   setFormArr:React.Dispatch<React.SetStateAction< objProps[]>>
 }
 const Navbar = (props:navProps) => {
+  // for logout
   const logout=()=>{
-  //  localStorage.removeItem('arr');
   alert("Logout Successfully")
-
  localStorage.setItem("LoginArr",JSON.stringify({}));
  props.setLogin(null);
-  //  localStorage.removeItem('LoginArr');
-}
 
+}
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light border-bottom">
     <div className="container-fluid">

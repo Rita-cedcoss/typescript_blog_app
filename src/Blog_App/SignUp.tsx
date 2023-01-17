@@ -19,9 +19,9 @@ const SignUp = (props: singupProps) => {
   const picRef = useRef<HTMLInputElement>(null);
   const passwdRef = useRef<HTMLInputElement>(null);
   const confirmpasswdRef = useRef<HTMLInputElement>(null);
-  let navigate=useNavigate();
-  // const [formDataArr,setFormArr]=useState<objProps[]>([]);
+  let navigate = useNavigate();
   const [name, setName] = useState("");
+  // validation
   const validateName = () => {
     if (nameRef.current !== null) {
       let name = nameRef.current.value;
@@ -70,7 +70,6 @@ const SignUp = (props: singupProps) => {
   };
   const validateConfpwd = () => {
     if (confirmpasswdRef.current !== null && passwdRef.current !== null) {
-      // let cpwd=confirmpasswdRef.current.value
       if (confirmpasswdRef.current.value === passwdRef.current.value) {
         setName("");
       } else {
@@ -78,6 +77,7 @@ const SignUp = (props: singupProps) => {
       }
     }
   };
+  // signup 
   const signUp = () => {
     if (
       nameRef.current !== null &&
@@ -86,29 +86,34 @@ const SignUp = (props: singupProps) => {
       picRef.current !== null &&
       passwdRef.current !== null &&
       confirmpasswdRef.current !== null
-    ) {
+    )
+    {
       let name = nameRef.current.value;
       let email = emailRef.current.value;
       let num = numRef.current.value;
       let profile = picRef.current.value;
       let pwd = passwdRef.current.value;
       let cpwd = confirmpasswdRef.current.value;
-      let obj = {
-        name: name,
-        email: email,
-        number: num,
-        profile: profile,
-        password: pwd,
-        confirmpwd: cpwd,
-      };
-      // let temp=props.formDataArr;
-      props.formDataArr.push(obj);
-      console.log(obj);
-      props.setFormArr([...props.formDataArr]);
-      let jsonarr = JSON.stringify(props.formDataArr);
-      localStorage.setItem("arr", jsonarr);
-      alert("User sign up successfully")
-      navigate("/signin");
+      if(name==" "||email==""||num==""||profile==" "||pwd==" "||cpwd==""){
+          alert("please fill  all the field");
+      }else{
+        let obj = {
+          name: name,
+          email: email,
+          number: num,
+          profile: profile,
+          password: pwd,
+          confirmpwd: cpwd,
+        };
+        props.formDataArr.push(obj);
+        console.log(obj);
+        props.setFormArr([...props.formDataArr]);
+        let jsonarr = JSON.stringify(props.formDataArr);
+        localStorage.setItem("arr", jsonarr);
+        alert("User sign up successfully");
+        navigate("/signin");
+      }
+      
     }
   };
 
@@ -172,7 +177,8 @@ const SignUp = (props: singupProps) => {
       <button type="submit" className="btn btn-primary" onClick={signUp}>
         Sign up
       </button>
-      <p className="mt-4 fs-4 fw-bold text-danger"><Link to="/signin">Sign In</Link>
+      <p className="mt-4 fs-4 fw-bold text-danger">
+        <Link to="/signin">Sign In</Link>
       </p>
     </div>
   );
