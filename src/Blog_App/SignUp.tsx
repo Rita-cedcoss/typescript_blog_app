@@ -101,11 +101,11 @@ const SignUp = (props: singupProps) => {
         password: pwd,
         confirmpwd: cpwd,
       };
-      let temp=props.formDataArr;
-      temp.push(obj);
+      // let temp=props.formDataArr;
+      props.formDataArr.push(obj);
       console.log(obj);
-      props.setFormArr([...temp]);
-      let jsonarr = JSON.stringify(temp);
+      props.setFormArr([...props.formDataArr]);
+      let jsonarr = JSON.stringify(props.formDataArr);
       localStorage.setItem("arr", jsonarr);
       alert("User sign up successfully")
       navigate("/signin");
@@ -172,8 +172,8 @@ const SignUp = (props: singupProps) => {
       <button type="submit" className="btn btn-primary" onClick={signUp}>
         Sign up
       </button>
-      {/* <p className="mt-4 fs-4 fw-bold text-danger"><Link to="/signin">Sign In</Link>
-      </p> */}
+      <p className="mt-4 fs-4 fw-bold text-danger"><Link to="/signin">Sign In</Link>
+      </p>
     </div>
   );
 };

@@ -1,33 +1,36 @@
 import React, { useRef } from "react";
-import { useNavigate } from "react-router-dom";
-type objProps={
-  email:string,
-  password:string
-}
-type signinProps={
-  formDataArr:objProps[];
-}
-const SignIn = (props:signinProps) => {
+import { Link, useNavigate } from "react-router-dom";
+type objProps = {
+  email: string;
+  password: string;
+};
+type signinProps = {
+  LoginArr:objProps|null;
+  setLogin:React.Dispatch<React.SetStateAction<objProps|null>>;
+  formDataArr: objProps[];
+};
+const SignIn = (props: signinProps) => {
   let refEmail = useRef<HTMLInputElement>(null);
   let refPwd = useRef<HTMLInputElement>(null);
-  let navigate=useNavigate();
+  let navigate = useNavigate();
+  console.log( props.formDataArr);
   const Login = () => {
     if (refEmail.current !== null && refPwd.current !== null) {
       let email = refEmail.current.value;
       let passwd = refPwd.current.value;
       let temp = -1;
       for (let i = 0; i < props.formDataArr.length; i++) {
-        if (
-          props.formDataArr[i].email == email &&
-          props.formDataArr[i].password == passwd
-        ) {
-          temp = i;
-          console.log(temp);
+        if ( props.formDataArr[i].email == email && props.formDataArr[i].password == passwd ) {
+          temp = i;  
         }
       }
       if (temp !== -1) {
+        let obj={email:email,password:passwd}
+        props.setLogin(obj);
+        let jsonarr = JSON.stringify(props.LoginArr);
+        localStorage.setItem("LoginArr", jsonarr);
         alert("You are login successfully");
-         navigate("/home")
+        navigate("/");
       } else {
         alert("please enter valid detail");
       }
@@ -59,6 +62,8 @@ const SignIn = (props:signinProps) => {
         <button type="submit" className="btn btn-primary" onClick={Login}>
           Sign In
         </button>
+        <p className="mt-4 fs-4 fw-bold text-danger"><Link to="/signup">Sign Up</Link>
+      </p>
       </form>
     </div>
   );
